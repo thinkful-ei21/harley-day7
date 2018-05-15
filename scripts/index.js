@@ -109,11 +109,20 @@ const handleFormSubmit = function() {
   );
 };
 
+const handleThumbnailClick = function() {
+  $('.results').on('click', 'li', event =>
+  {
+    const videoId = $(event.currentTarget).find('img').attr('class');
+    window.open(`https://www.youtube.com/watch?v=${videoId}`);
+  });
+};
+
 // When DOM is ready:
 $(function () {
   // TASK:
   // 1. Run `handleFormSubmit` to bind the event listener to the DOM
   handleFormSubmit();
+  handleThumbnailClick();
   
 });
 
