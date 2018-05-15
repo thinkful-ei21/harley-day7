@@ -1,4 +1,5 @@
 'use strict';
+/* global store */
 
 const API_KEY = 'AIzaSyC-_OFqHR01cjpTSjpa1K0G9eIuwwKlDMk';
 
@@ -14,9 +15,6 @@ const API_KEY = 'AIzaSyC-_OFqHR01cjpTSjpa1K0G9eIuwwKlDMk';
   }
 
 */
-const store = {
-  videos: []
-};
 
 // TASK: Add the Youtube Search API Base URL here:
 // Documentation is here: https://developers.google.com/youtube/v3/docs/search/list#usage
@@ -67,7 +65,7 @@ const generateVideoItemHtml = function(video) {
 // objects and sets the array as the value held in store.items
 // TEST IT!
 const addVideosToStore = function(videos) {
-  store.videos = videos;
+  store.setVideos(videos);
 };
 
 // TASK:
