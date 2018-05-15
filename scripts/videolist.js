@@ -4,7 +4,7 @@
 // eslint-disable-next-line no-unused-vars
 const videoList = (function() {
   const generateListItem = function(video) {
-    const list = `<li><img src="${video.thumbnail}" class="${video.id}"></li>`;
+    const list = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${video.id}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
     return list;
   }; 
   const render = function() {
@@ -34,16 +34,16 @@ const videoList = (function() {
     }
     );
   };
-  const handleThumbnailClick = function() {
-    $('.results').on('click', 'li', event =>
-    {
-      const videoId = $(event.currentTarget).find('img').attr('class');
-      window.open(`https://www.youtube.com/watch?v=${videoId}`);
-    });
-  };
+  //   const handleThumbnailClick = function() {
+  //     $('.results').on('click', 'li', event =>
+  //     {
+  //       const videoId = $(event.currentTarget).find('img').attr('class');
+  //       window.open(`https://www.youtube.com/watch?v=${videoId}`);
+  //     });
+  //   };
   const bindEventListeners = function() {
     handleFormSubmit();
-    handleThumbnailClick();
+    //handleThumbnailClick();
   };
 
   return {
