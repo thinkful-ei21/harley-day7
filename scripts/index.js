@@ -1,5 +1,5 @@
 'use strict';
-/* global store,api */
+/* global videoList */
 
 /*
   We want our store to hold a `videos` array of "decorated" objects - i.e. objects that
@@ -31,41 +31,23 @@
 // WILL have to dig into several nested properties!
 // TEST IT! Grab an example API response and send it into the function - make sure
 // you get back the object you want.
-const decorateResponse = function(response) {
-  return response.items.map(function(item)
-  {
-    return {id:item.id.videoId,
-      title:item.snippet.title,
-      thumbnail:item.snippet.thumbnails.medium.url};
-  });
-};
 
 // TASK:
 // 1. Create a `generateVideoItemHtml` function that receives the decorated object
 // 2. Using the object, return an HTML string containing all the expected data
 // TEST IT!
-const generateVideoItemHtml = function(video) {
-  const list = `<li><img src="${video.thumbnail}" class="${video.id}"></li>`;
-  return list;
-};
 
 // TASK:
 // 1. Create a `addVideosToStore` function that receives an array of decorated video 
 // objects and sets the array as the value held in store.items
 // TEST IT!
-const addVideosToStore = function(videos) {
-  store.setVideos(videos);
-};
+
 
 // TASK:
 // 1. Create a `render` function
 // 2. Map through `store.videos`, sending each `video` through your `generateVideoItemHtml`
 // 3. Add your array of DOM elements to the appropriate DOM element
 // TEST IT!
-const render = function() {
-  const domElements = store.videos.map(video => generateVideoItemHtml(video));
-  $('.results').html(domElements);
-};
 
 // TASK:
 // 1. Create a `handleFormSubmit` function that adds an event listener to the form
@@ -78,38 +60,13 @@ const render = function() {
 //   f) Inside the callback, add the decorated response into your store using the `addVideosToStore` function
 //   g) Inside the callback, run the `render` function 
 // TEST IT!
-const handleFormSubmit = function() {
-  $('form').submit(event =>
-  {
-    event.preventDefault();
-    const queryTarget = $(event.currentTarget).find('#search-term');
-    const query = queryTarget.val();
-    queryTarget.val('');
-    api.fetchVideos(query, response =>
-    {
-      //console.log(response);
-      addVideosToStore(decorateResponse(response));
-      //store.videos.map(video => console.log(video));
-      render();
-    });
-  }
-  );
-};
 
-const handleThumbnailClick = function() {
-  $('.results').on('click', 'li', event =>
-  {
-    const videoId = $(event.currentTarget).find('img').attr('class');
-    window.open(`https://www.youtube.com/watch?v=${videoId}`);
-  });
-};
 
 // When DOM is ready:
 $(function () {
   // TASK:
   // 1. Run `handleFormSubmit` to bind the event listener to the DOM
-  handleFormSubmit();
-  handleThumbnailClick();
+  videoList.bindEventListeners();
   
 });
 
