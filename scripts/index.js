@@ -1,7 +1,5 @@
 'use strict';
-/* global store */
-
-const API_KEY = 'AIzaSyC-_OFqHR01cjpTSjpa1K0G9eIuwwKlDMk';
+/* global store,api */
 
 /*
   We want our store to hold a `videos` array of "decorated" objects - i.e. objects that
@@ -18,21 +16,12 @@ const API_KEY = 'AIzaSyC-_OFqHR01cjpTSjpa1K0G9eIuwwKlDMk';
 
 // TASK: Add the Youtube Search API Base URL here:
 // Documentation is here: https://developers.google.com/youtube/v3/docs/search/list#usage
-const BASE_URL = 'https://www.googleapis.com/youtube/v3/search';
 
 // TASK:
 // 1. Create a `fetchVideos` function that receives a `searchTerm` and `callback`
 // 2. Use `searchTerm` to construct the right query object based on the Youtube API docs
 // 3. Make a getJSON call using the query object and sending the provided callback in as the last argument
 // TEST IT! Execute this function and console log the results inside the callback.
-const fetchVideos = function(searchTerm, callback) {
-  const query = {
-    part: 'snippet',
-    key: API_KEY,
-    q: `${searchTerm}`,
-  };
-  $.getJSON(BASE_URL, query, callback);
-};
 
 // TASK:
 // 1. Create a `decorateResponse` function that receives the Youtube API response
@@ -96,7 +85,7 @@ const handleFormSubmit = function() {
     const queryTarget = $(event.currentTarget).find('#search-term');
     const query = queryTarget.val();
     queryTarget.val('');
-    fetchVideos(query, response =>
+    api.fetchVideos(query, response =>
     {
       //console.log(response);
       addVideosToStore(decorateResponse(response));
