@@ -4,7 +4,9 @@
 // eslint-disable-next-line no-unused-vars
 const videoList = (function() {
   const generateListItem = function(video) {
-    const list = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${video.id}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    const list = `<li><iframe width="560" height="315" src="https://www.youtube.com/embed/${video.id}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <h2>
+    Find more videos from the <a class="${video.id}" href="https://www.youtube.com/channel/${video.channelId}" target="_blank">${video.channelTitle}</a> Youtube channel.</h2>`;
     return list;
   }; 
   const render = function() {
@@ -14,9 +16,11 @@ const videoList = (function() {
   const decorateResponse = function(response) {
     return response.items.map(function(item)
     {
-      return {id:item.id.videoId,
-        title:item.snippet.title,
-        thumbnail:item.snippet.thumbnails.medium.url};
+      return {id: item.id.videoId,
+        title: item.snippet.title,
+        thumbnail: item.snippet.thumbnails.medium.url,
+        channelId: item.snippet.channelId,
+        channelTitle: item.snippet.channelTitle};
     });
   };  
   const handleFormSubmit = function() {
